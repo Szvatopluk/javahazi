@@ -1,4 +1,4 @@
-package com.peti.main;
+package com.peti.data;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Notes implements Serializable {
-	List<Note> notes;
+
+	private List<Note> notes;
 	
 	public Notes(){
 		notes = new ArrayList<Note>();
@@ -29,17 +30,18 @@ public class Notes implements Serializable {
 		return notes;
 	}
 	
-	void load(){
+	public void load(){
 		try{
 		FileInputStream fis = new FileInputStream("save.txt");
 		ObjectInputStream ois = new ObjectInputStream(fis);
-		List<Note> notes = (List<Note>) ois.readObject();
+		notes = (List<Note>) ois.readObject();
 		ois.close();
 		} catch(Exception e){
 			e.printStackTrace();	
 		}	
 	}
-	void save(){
+
+	public void save(){
 		try{
 		FileOutputStream fos = new FileOutputStream("save.txt");
 		ObjectOutputStream oos = new ObjectOutputStream(fos);

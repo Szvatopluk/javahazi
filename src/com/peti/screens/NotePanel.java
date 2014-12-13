@@ -1,11 +1,14 @@
 package com.peti.screens;
 
+import com.peti.data.Note;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 
 public class NotePanel extends JTextArea implements MouseListener, MouseMotionListener {
+
+    private Note note;
 
     private int clickedX;
     private int clickedY;
@@ -14,23 +17,30 @@ public class NotePanel extends JTextArea implements MouseListener, MouseMotionLi
     private int lastX;
     private int lastY;
 
-    public NotePanel(String text){
-        setSize(200, 200);
-        Random rnd = new Random();
-        setLocation(rnd.nextInt(300), rnd.nextInt(300));
-        setBackground(Color.YELLOW);
+    public NotePanel(Note note){
+        this.note = note;
+        setSize(note.getSize());
+        setLocation(note.getPosition());
+        setForeground(note.getTextcolor());
+        setBackground(note.getBackground());
+        setText(note.getText());
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         setEditable(false);
         setLineWrap(true);
-        setText(text);
         addMouseListener(this);
         addMouseMotionListener(this);
+    }
+
+    public Note getNote(){
+        note.setPosition(getLocation());
+        note.setSize(getSize());
+        return note;
     }
 
     @Override
     public void mouseClicked(MouseEvent e){
         if(e.getClickCount() >= 2) {
-            firePropertyChange("edit", null, null);
+            firePropertyChange("edit", note, null);
         }
     }
 
@@ -49,7 +59,7 @@ public class NotePanel extends JTextArea implements MouseListener, MouseMotionLi
     @Override
     public void mouseReleased(MouseEvent e){
         if(getX() < 60 && getY() < 70){
-            firePropertyChange("remove", null, null);
+            firePropertyChange("remove", note, null);
         }
     }
 

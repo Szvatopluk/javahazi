@@ -1,4 +1,4 @@
-package com.peti.main;
+package com.peti.data;
 
 public class Preferences {
 	private String sound;
