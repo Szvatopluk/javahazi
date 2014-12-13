@@ -1,19 +1,17 @@
 package com.peti.main;
 
+import com.peti.screens.MainFrame;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
-//        System.out.println("Hello Worlds!");
-//        Note n = new Note();
-//        n.setText("Kakamaki");
-//        Notes lista = new Notes();
-//        lista.addNote(n);
-//        lista.save();
-    	Notes lista = new Notes();
-    	lista.load();
-    	for(Note n : lista.getNotes()){
-    		System.out.println(n.getText());
-    	}
-    	System.out.println("Hello World!");
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.init();
+        mainFrame.setVisible(true);
+        List<String> notes = Arrays.asList("Aaaa", "Bbbb", "Cccc");
+        mainFrame.updateNotes(notes);
     }
 }
