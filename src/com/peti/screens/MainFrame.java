@@ -4,6 +4,9 @@ import com.peti.data.Note;
 import com.peti.data.Notes;
 import com.peti.dialogs.NoteDialog;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -59,11 +62,13 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
             public void componentShown(ComponentEvent e) {
                 loadData();
             }
+
             @Override
             public void componentHidden(ComponentEvent e) {
                 saveData();
                 System.exit(0);
             }
+
             @Override
             public void componentResized(ComponentEvent e) {
                 notesPanel.setSize(getSize());
@@ -114,7 +119,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
         }
         if(evt.getPropertyName().equals("edit")){
             noteDialog.showDialog((Note)evt.getOldValue());
-            notePanel.updateText();
+            notePanel.updateNote();
         }
     }
 
