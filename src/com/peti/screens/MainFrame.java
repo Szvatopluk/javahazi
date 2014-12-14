@@ -2,6 +2,7 @@ package com.peti.screens;
 
 import com.peti.data.Note;
 import com.peti.data.Notes;
+import com.peti.dialogs.NoteDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -91,21 +92,27 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
 
     private void addNoteMouseClicked(){
         noteDialog.showDialog(null);
-        NotePanel notePanel = new NotePanel(noteDialog.getNote());
-        notePanel.addPropertyChangeListener(this);
-        notesPanel.add(notePanel,0);
-        notePanel.repaint();
-    }
+        Note note = noteDialog.getNote();
+        if(note != null){
+            NotePanel notePanel = new NotePanel(note);
+            notePanel.addPropertyChangeListener(this);
+            notesPanel.add(notePanel,0);
+            notePanel.repaint();
 
+        }
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
+        NotePanel notePanel = (NotePanel)evt.getSource();
+
         if(evt.getPropertyName().equals("remove")){
-            notesPanel.remove((NotePanel)evt.getSource());
+            notesPanel.remove(notePanel);
             notesPanel.repaint();
         }
         if(evt.getPropertyName().equals("edit")){
             noteDialog.showDialog((Note)evt.getOldValue());
+            notePanel.updateText();
         }
     }
 

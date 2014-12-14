@@ -4,6 +4,7 @@ public class Preferences {
 	private String sound;
 	private String background;
 	private int maxNotes;
+    // default size
 	
 	public void load(){
 		

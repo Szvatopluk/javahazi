@@ -21,9 +21,7 @@ public class NotePanel extends JTextArea implements MouseListener, MouseMotionLi
         this.note = note;
         setSize(note.getSize());
         setLocation(note.getPosition());
-        setForeground(note.getTextcolor());
-        setBackground(note.getBackground());
-        setText(note.getText());
+        updateText();
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         setEditable(false);
         setLineWrap(true);
@@ -35,6 +33,12 @@ public class NotePanel extends JTextArea implements MouseListener, MouseMotionLi
         note.setPosition(getLocation());
         note.setSize(getSize());
         return note;
+    }
+
+    public void updateText(){
+        setForeground(note.getTextcolor());
+        setBackground(note.getBackground());
+        setText(note.getText());
     }
 
     @Override
