@@ -46,7 +46,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
         setDefaultCloseOperation(HIDE_ON_CLOSE);
 
         Container contentPane = getContentPane();
-        getContentPane().setLayout(null);
+        contentPane.setLayout(null); // To use screen coordinates directly
 
         String imageFileName = PrefAccess.getPreferences().get(Prefs.BACKGROUND_IMAGE, Prefs.DEFAULT_BACKGROUND_IMAGE);
         background = new ImagePanel(imageFileName);
@@ -76,8 +76,8 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
 
         notesPanel.setLocation(0,0);
         notesPanel.setSize(getSize());
-        notesPanel.setOpaque(false);
-        notesPanel.setLayout(null);
+        notesPanel.setOpaque(false); // make it transparent
+        notesPanel.setLayout(null);  // use direct coordinates
         contentPane.add(notesPanel, 0);
 
         noteDialog.setLocationRelativeTo(this);
@@ -85,12 +85,14 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
         preferencesDialog.setLocationRelativeTo(this);
 
         addComponentListener(new ComponentAdapter() {
+            // Called when main panel is displayed
             @Override
             public void componentShown(ComponentEvent e) {
                 logger.log(Level.FINE, "componentShown()");
                 loadData();
             }
 
+            // Called when main panel is closed
             @Override
             public void componentHidden(ComponentEvent e) {
                 logger.log(Level.FINE, "componentHidden()");
@@ -126,7 +128,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
     }
 
     /**
-     * Saves the notes data from notes panel
+     * Saves the notes data from note panels
      */
     private void saveData(){
         Notes notes = new Notes();
