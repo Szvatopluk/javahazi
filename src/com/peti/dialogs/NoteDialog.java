@@ -1,6 +1,8 @@
 package com.peti.dialogs;
 
 import com.peti.data.Note;
+import com.peti.data.PrefAccess;
+import com.peti.data.Prefs;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * Note data editor dialog
+ */
 public class NoteDialog extends JDialog {
 
     private Note note;
@@ -18,6 +23,9 @@ public class NoteDialog extends JDialog {
     JButton backgroundColorButton = new JButton();
     JSpinner warningSpinner;
 
+    /**
+     * Creates a note editor dialog, initializing the dialog components
+     */
     public NoteDialog() {
         setModal(true);
         setSize(new Dimension(500, 400));
@@ -121,6 +129,9 @@ public class NoteDialog extends JDialog {
 
     }
 
+    /**
+     * Should be called to display the dialog, updates the components based on the received note data
+     */
     public void showDialog(Note note){
         this.note = note;
         setTitle(note != null ? "Edit note" : "Add note");
@@ -139,14 +150,21 @@ public class NoteDialog extends JDialog {
         setVisible(true);
     }
 
+    /**
+     * Getter to access the dialogs note data
+     */
     public Note getNote(){
         return note;
     }
 
+    /**
+     * Ok button handler, updates the note data of the dialog
+     */
     private void okButtonAction(){
         if(note == null){
             note = new Note();
-            note.setSize(new Dimension(200, 200)); // TODO default size
+            int size = PrefAccess.getPreferences().getInt(Prefs.NOTE_SIZE, Prefs.DEFAULT_NOTE_SIZE);
+            note.setSize(new Dimension(size, size));
             Random rnd = new Random();
             note.setPosition(new Point(100 + rnd.nextInt(5) * 10, 100 + rnd.nextInt(5) * 10));
         }
@@ -157,6 +175,9 @@ public class NoteDialog extends JDialog {
         setVisible(false);
     }
 
+    /**
+     * Cancel button handler, just hides the dialog
+     */
     private void cancelButtonAction(){
         setVisible(false);
     }

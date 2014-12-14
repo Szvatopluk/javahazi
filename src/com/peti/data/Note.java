@@ -4,6 +4,9 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Note data record
+ */
 public class Note implements Serializable {
     private	String text;
     private	Date warning;
