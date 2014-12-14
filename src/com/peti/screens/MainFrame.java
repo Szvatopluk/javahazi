@@ -18,7 +18,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
     private ImagePanel background = new ImagePanel("/images/parafa.jpg");
     private ImagePanel trashBin = new ImagePanel("/images/szemetes.png");
     private ImagePanel addNote = new ImagePanel("/images/uj.png");
-    private ImagePanel settings = new ImagePanel("/images/szemetes.png");
+    private ImagePanel preferences = new ImagePanel("/images/szemetes.png");
     private JPanel notesPanel = new JPanel();
     private NoteDialog noteDialog = new NoteDialog();
 
@@ -51,6 +51,8 @@ public class MainFrame extends JFrame implements PropertyChangeListener {
         notesPanel.setOpaque(false);
         notesPanel.setLayout(null);
         contentPane.add(notesPanel, 0);
+
+        noteDialog.setLocationRelativeTo(this);
 
         addComponentListener(new ComponentAdapter() {
             @Override
